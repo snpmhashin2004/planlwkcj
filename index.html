@@ -1,62 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informacje o klasie i nauczycielu</title>
+  <style>
+    /* Dodatkowy styl do informacji o klasie i nauczycielu */
+    #info {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+  </style>
 </head>
 <body>
-  <table border="1" cellspan="0">             <tr>                                    <th colspan="7">PLAN LEKCJI</th>                                                
-  
-  </tr>
-  <tr>                                      <th rowspan="7">godziny</th>                <th>pon</th>                              <th>wt</th>                              <th>sr</th>                              <th>czw</th>                              <th>pt</th>                                                              </tr>                                                                   <tr>  
-  <td>j. pol</td>
-  <td>plas</td>
-  <td>rel</td>
-  <td>his</td>
-  <td>rel</td>
-  </tr>                                      
-  <tr>
-    <td>wf</td>
-    <td>mat</td>
-    <td>j. ang</td>
-    <td>wf</td>
-    <td>biol</td>
-  </tr>
-  
-  <tr>
-    <td>mat</td>
-    <td>his</td>
-    <td>j. pol</td>
-    <td>j. pol</td>
-    <td>mat</td>
-  </tr>
-  
-  <tr>
-    <td>j. ang</td>
-    <td>j. pol</td>
-    <td>wf</td>
-    <td>muz</td>
-    <td>j. pol</td>
-  </tr>
-  
-  <tr>
-    <td>gw</td>
-    <td>geo</td>
-    <td>mat</td>
-    <td>j. ang</td>
-    <td>wf</td>
-  </tr>
-  
-  <tr>
-    <td>zaj. poz.in.</td>
-    <td>inf</td>
-    <td> </td>
-    <td></td>
-    <td>tech</td>
-    
-    
-    
-  </tr>
-  
-</table>
-  
+
+  <!-- Tabela z planem lekcji -->
+  <table border="1" cellspacing="0">
+    <tr>
+      <th colspan="7" style="width: 75px;">PLAN LEKCJI</th>
+    </tr>
+    <tr>
+      <th rowspan="7" style="width: 75px;">godziny</th>
+      <th style="width: 75px;">pon</th>
+      <th style="width: 75px;">wt</th>
+      <th style="width: 75px;">sr</th>
+      <th style="width: 75px;">czw</th>
+      <th style="width: 75px;">pt</th>
+    </tr>
+    <tr>
+      <td style="width: 75px;">j. pol</td>
+      <td>plas</td>
+      <td>rel</td>
+      <td>his</td>
+      <td>rel</td>
+    </tr>
+    <tr>
+      <td style="width: 75px;">wf</td>
+      <td>mat</td>
+      <td>j. ang</td>
+      <td>wf</td>
+      <td>biol</td>
+    </tr>
+    <tr>
+      <td style="width: 75px;">mat</td>
+      <td>his</td>
+      <td>j. pol</td>
+      <td>j. pol</td>
+      <td>mat</td>
+    </tr>
+    <tr>
+      <td style="width: 75px;">j. ang</td>
+      <td>j. pol</td>
+      <td>wf</td>
+      <td>muz</td>
+      <td>j. pol</td>
+    </tr>
+    <tr>
+      <td style="width: 75px;">gw</td>
+      <td>geo</td>
+      <td>mat</td>
+      <td>j. ang</td>
+      <td>wf</td>
+    </tr>
+    <tr>
+      <td style="width: 75px;">zaj. poz.in.</td>
+      <td>inf</td>
+      <td></td>
+      <td></td>
+      <td>tech</td>
+    </tr>
+  </table>
+
+  <!-- Div, w którym będą wyświetlane informacje o klasie i nauczycielu -->
+  <div id="info">
+    <h2>Informacje</h2>
+    <p><strong>Klasa:</strong> <span id="class"></span></p>
+    <p><strong>Nauczyciel:</strong> <span id="teacher"></span></p>
+  </div>
+
+  <script>
+    // Pobranie referencji do elementów HTML
+    const tableCells = document.querySelectorAll('td');
+
+    // Informacje o klasie i nauczycielu dla każdej komórki
+    const cellInfo = [
+      { class: '25', teacher: 'Jarosław Sułkowski' },
+      { class: '011', teacher: 'Anna Kąkol' },
+      { class: '25', teacher: 'Alicja Wojciechowska' },
+      { class: '26', teacher: 'Barbara Kowalczyk' },
+      { class: '31', teacher: 'Piotr Lewandowski' },
+      { class: 'sg', teacher: 'Agnieszka Rose' },
+      { class: '31', teacher: 'Małgorzata Rujner' },
+      { class: '22b', teacher: 'Alicja Dąbrowska' },
+      { class: 'sg', teacher: 'Agnieszka Rose' },
+      { class: '26', teacher: 'Ewa Piotrowska' },
+      { class: '32', teacher: 'Małgorzata Rujner' },
+      { class: '25', teacher: 'Historia' },
+      { class: '24', teacher: 'Artur Malinowski' },
+      { class: '24', teacher: 'Joanna Krawczyk' },
+      { class: '32', teacher: 'Paweł Sikorski' },
+      { class: '22b', teacher: 'Mirosława Wesseł' },
+      { class: '24', teacher: 'Jarosław Sułkowski' },
+      { class: 'sg', teacher: 'Agnieszka Rose' },
+      { class: '011', teacher: 'Szymon Rutkowski' },
+      { class: '24', teacher: 'Beata Pawlak' },
+      { class: '26', teacher: 'Małgorzata Rujner' },
+      { class: '26', teacher: 'Wioletta Górska' },
+      { class: '32', teacher: 'Damian Kowal' },
+      { class: '22b', teacher: 'Natalia Piotrowska' },
+      { class: 'sg', teacher: 'Agnieszka Rose' },
+      { class: '32', teacher: 'Małgorzata Rujner' },
+      { class: '23', teacher: 'Alicja Wojciechowska' },
+      { class: 'Brak', teacher: 'Brak' },
+      { class: 'Brak', teacher: 'Brak' },
+      { class: '011', teacher: 'Anna Kąkol' }
+    ];
+
+    // Iteracja po wszystkich komórkach tabeli
+    tableCells.forEach((cell, index) => {
+      // Dodanie obsługi zdarzenia kliknięcia do każdej komórki
+      cell.addEventListener('click', () => {
+        // Sprawdzenie, czy indeks mieści się w zakresie tablicy cellInfo
+        if (index < cellInfo.length) {
+          // Pobranie informacji o klasie i nauczycielu dla danej komórki
+          const classInfo = cellInfo[index].class;
+          const teacherInfo = cellInfo[index].teacher;
+
+          // Ustawienie tekstów w odpowiednich miejscach w divie z informacjami
+          document.getElementById('class').textContent = classInfo;
+          document.getElementById('teacher').textContent = teacherInfo;
+
+          // Pokazanie diva z informacjami
+          document.getElementById('info').style.display = 'block';
+        } else {
+          console.error('Brak informacji dla tej komórki.');
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>

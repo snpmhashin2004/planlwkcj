@@ -13,6 +13,10 @@
       border: 1px solid #ccc;
       background-color: #f9f9f9;
     }
+
+    .highlight {
+      background-color: yellow !important;
+    }
   </style>
 </head>
 <body>
@@ -77,6 +81,8 @@
   <!-- Div, w którym będą wyświetlane informacje o klasie i nauczycielu -->
   <div id="info">
     <h2>Informacje</h2>
+    <p><strong>Godzina:</strong> <span id="hour"></span></p>
+    <p><strong>Przedmiot:</strong> <span id="subject"></span></p>
     <p><strong>Klasa:</strong> <span id="class"></span></p>
     <p><strong>Nauczyciel:</strong> <span id="teacher"></span></p>
   </div>
@@ -87,51 +93,60 @@
 
     // Informacje o klasie i nauczycielu dla każdej komórki
     const cellInfo = [
-      { class: '25', teacher: 'Jarosław Sułkowski' },
-      { class: '011', teacher: 'Anna Kąkol' },
-      { class: '25', teacher: 'Alicja Wojciechowska' },
-      { class: '26', teacher: 'Krzysztof Strąk' },
-      { class: '31', teacher: 'Alicja Wojciechowska' },
-      { class: 'sg', teacher: 'Agnieszka Rose' },
-      { class: '31', teacher: 'Małgorzata Rujner' },
-      { class: '22b', teacher: 'Mirosława Wesseł' },
-      { class: 'sg', teacher: 'Agnieszka Rose' },
-      { class: '26', teacher: 'Wioletta Górska' },
-      { class: '32', teacher: 'Małgorzata Rujner' },
-      { class: '25', teacher: 'Krzysztof Strąk' },
-      { class: '24', teacher: 'Jarosław Sułkowski' },
-      { class: '24', teacher: 'Jarosław Sułkowski' },
-      { class: '32', teacher: 'Małgorzata Rujner' },
-      { class: '22b', teacher: 'Mirosława Wesseł' },
-      { class: '24', teacher: 'Jarosław Sułkowski' },
-      { class: 'sg', teacher: 'Agnieszka Rose' },
-      { class: '011', teacher: 'Anna Kąkol' },
-      { class: '24', teacher: 'Jarosław Sułkowski' },
-      { class: '26', teacher: 'Małgorzata Rujner' },
-      { class: '26', teacher: 'Wioletta Górska' },
-      { class: '32', teacher: 'Małgorzata Rujner' },
-      { class: '22b', teacher: 'Mirosława Wesseł' },
-      { class: 'sg', teacher: 'Agnieszka Rose' },
-      { class: '32', teacher: 'Małgorzata Rujner' },
-      { class: '23', teacher: 'Alicja Wojciechowska' },
-      { class: 'Brak ', teacher: 'Brak' },
-      { class: 'Brak ', teacher: 'Brak' },
-      { class: '011', teacher: 'Anna Kąkol' }
+      { class: '25', teacher: 'Jarosław Sułkowski', hour: "8:00 - 8:45", subject: "Język polski" },
+      { class: '011', teacher: 'Anna Kąkol', hour: "8:00 - 8:45", subject: "Plastyka"},
+      { class: '25', teacher: 'Alicja Wojciechowska', hour: "8:00 - 8:45", subject: "Religia"},
+      { class: '26', teacher: 'Krzysztof Strąk', hour: "8:00 - 8:45", subject: "Historia"},
+      { class: '31', teacher: 'Alicja Wojciechowska', hour: "8:00 - 8:45", subject: "Religia"},
+      { class: 'sg', teacher: 'Agnieszka Rose', hour: "8:55 - 9:40", subject: "Wychowanie fizyczne"},
+      { class: '31', teacher: 'Małgorzata Rujner', hour: "8:55 - 9:40", subject: "Matematyka" },
+      { class: '22b', teacher: 'Mirosława Wesseł', hour: "8:55 - 9:40", subject: "Język angielski" },
+      { class: 'sg', teacher: 'Agnieszka Rose', hour: "8:55 - 9:40", subject: "Wychowanie fizyczne" },
+      { class: '26', teacher: 'Wioletta Górska', hour: "8:55 - 9:40", subject: "Biologia" },
+      { class: '32', teacher: 'Małgorzata Rujner', hour: "9:50 - 10:35", subject: "Matematyka" },
+      { class: '25', teacher: 'Krzysztof Strąk', hour: "9:50 - 10:35", subject: "Historia" },
+      { class: '24', teacher: 'Jarosław Sułkowski', hour: "9:50 - 10:35", subject: "Język polski"  },
+      { class: '24', teacher: 'Jarosław Sułkowski', hour: "9:50 - 10:35", subject: "Język polski"  },
+      { class: '32', teacher: 'Małgorzata Rujner', hour: "9:50 - 10:35", subject: "Matematyka" },
+      { class: '22b', teacher: 'Mirosława Wesseł', hour: "10:45 - 11:30", subject: "Język angielski" },
+      { class: '24', teacher: 'Jarosław Sułkowski', hour: "10:45 - 11:30", subject: "Język polski" },
+      { class: 'sg', teacher: 'Agnieszka Rose', hour: "10:45 - 11:30", subject: "Wychowanie fizyczne"  },
+      { class: '011', teacher: 'Anna Kąkol', hour: "10:45 - 11:30", subject: "Muzyka"  },
+      { class: '24', teacher: 'Jarosław Sułkowski', hour: "10:45 - 11:30", subject: "Język polski" },
+      { class: '26', teacher: 'Małgorzata Rujner', hour: "11:50 - 12:35", subject: "Godzina wychowawcza"},
+      { class: '26', teacher: 'Wioletta Górska', hour: "11:50 - 12:35", subject: "Geografia"  },
+      { class: '32', teacher: 'Małgorzata Rujner', hour: "11:50 - 12:35", subject: "Matematyka" },
+      { class: '22b', teacher: 'Mirosława Wesseł', hour: "11:50 - 12:35", subject: "Język angielski"  },
+      { class: 'sg', teacher: 'Agnieszka Rose', hour: "11:50 - 12:35", subject: "Wychowanie fizyczne" },
+      { class: '32', teacher: 'Małgorzata Rujner', hour: "12:40 - 13:25", subject: "Matematyka"},
+      { class: '23', teacher: 'Alicja Wojciechowska', hour: "12:40 - 13:25", subject: "Informatyka"  },
+      { class: 'Brak ', teacher: 'Brak', hour: "Brak", subject: "Brak" },
+      { class: 'Brak ', teacher: 'Brak', hour: "Brak", subject: "Brak" },
+      { class: '011', teacher: 'Anna Kąkol', hour: "12:40 - 13:25", subject: "Technika"}
     ];
 
     // Iteracja po wszystkich komórkach tabeli
     tableCells.forEach((cell, index) => {
       // Dodanie obsługi zdarzenia kliknięcia do każdej komórki
       cell.addEventListener('click', () => {
+        tableCells.forEach((cell) => {
+          cell.classList.remove('highlight');
+        });
+        // Podświetlenie klikniętej komórki
+        cell.classList.add('highlight');
         // Sprawdzenie, czy indeks mieści się w zakresie tablicy cellInfo
         if (index < cellInfo.length) {
           // Pobranie informacji o klasie i nauczycielu dla danej komórki
           const classInfo = cellInfo[index].class;
           const teacherInfo = cellInfo[index].teacher;
+          const hourInfo = cellInfo[index].hour;
+          const subjectInfo = cellInfo[index].subject;
 
           // Ustawienie tekstów w odpowiednich miejscach w divie z informacjami
           document.getElementById('class').textContent = classInfo;
+          document.getElementById('hour').textContent = hourInfo;
           document.getElementById('teacher').textContent = teacherInfo;
+          document.getElementById('subject').textContent = subjectInfo;
 
           // Pokazanie diva z informacjami
           document.getElementById('info').style.display = 'block';
